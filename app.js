@@ -4,14 +4,10 @@ const yargs = require('yargs/yargs')
 const { hideBin } = require('yargs/helpers')
 const argv = yargs(hideBin(process.argv)).argv
 
-const url = 'https://api.aerisapi.com/forecasts/40.741895,-73.98930777777778?'+
-    'from=today&to=today'+
-    '&client_id=' + argv.client_id +
-    '&client_secret=' + argv.client_secret;
+//API  Docs: https://openweathermap.org/current
+const url = 'https://api.openweathermap.org/data/2.5/weather?units=metric&lat=35&lon=139&appid='+argv.api_key
 
 request({url: url, json: true}, (error, response) => {
-    const tempC = response.body.response[0].periods[0].avgTempC;
-    const feelsLike = response.body.response[0].periods[0].feelslikeC;
-
-    console.log('It is average '+tempC+' degree out. It feels like '+feelsLike+' degree out.')
+    const tempC = response.body.main.temp
+    console.log('It is currently '+tempC+' degree out.')
 })
