@@ -1,26 +1,16 @@
 const request = require('request');
-
+const geocode = require('./utils/geocode')
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 const argv = yargs(hideBin(process.argv)).argv;
 
-//geocoding API docs: https://docs.mapbox.com/api/search/geocoding
-const location = 'Los Angles';
-const geoCodeUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+location+'.json?access_token='+
-    argv.geoCodingAccessToken +
-    '&limit=1';
-request({url: geoCodeUrl, json: true}, (error, response) => {
-    if (error) {
-        console.log('Unable to connect to the geocoding API.');
-    } else if (response.body.features.length === 0) {
-        console.log('Unable to find given location.');
-    } else {
-        const placeName = response.body.features[0].place_name;
-        const latlong = response.body.features[0].center;
-        console.log('Place: ' + placeName +'\nLatlong: ' + latlong[0] + ', ' + latlong[1]);
-    }
 
-});
+const location = 'Los Angeles';
+
+geocode(location, (error, latlong) => {
+    console.log('Error', error);
+    console.log('Latlong', latlong);
+})
 
 //API  Docs: https://openweathermap.org/current
 const latítude = '-73.9808';
