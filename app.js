@@ -4,11 +4,18 @@ const forecast = require('./utils/forecast');
 const location = 'Los Angeles';
 
 geocode(location, (error, latlong) => {
-    console.log('Error', error);
-    console.log('Latlong', latlong);
+    if (error) {
+        console.log('Error', error);
+        return;
+    }
+
+    forecast(latlong.latitude, latlong.longitude, (error, data) => {
+        if (error) {
+            console.log('Error', error);
+            return;
+        }
+        console.log(latlong.placename);
+        console.log(data);
+    });
 });
 
-forecast(-75.7088, 44.1545, (error, data) => {
-    console.log('Error', error)
-    console.log('Data', data)
-});
