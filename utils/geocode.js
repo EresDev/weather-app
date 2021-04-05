@@ -5,10 +5,10 @@ const { hideBin } = require('yargs/helpers');
 const geoCodingAccessToken = () => yargs(hideBin(process.argv)).argv.geoCodingAccessToken;
 //geocoding API docs: https://docs.mapbox.com/api/search/geocoding
 const geocode = (address, callback) => {
-    const geoCodeUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+encodeURIComponent(address)+'.json?access_token='+
+    const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'+encodeURIComponent(address)+'.json?access_token='+
         geoCodingAccessToken() +
         '&limit=1';
-    request({url: geoCodeUrl, json: true}, (error, {body}) => {
+    request({url, json: true}, (error, {body}) => {
         if (error) {
             callback('Unable to connect to the geocoding API.', undefined);
         } else if (body.features.length === 0) {
