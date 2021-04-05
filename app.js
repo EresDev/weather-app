@@ -5,7 +5,7 @@ const location = process.argv[6];
 if(!location){
     console.error("Missing location in argument as the first argument.");
 } else{
-    geocode(location, (error, {latitude, longitude, placename}) => {
+    geocode(location, (error, {latitude, longitude, placename} = {}) => {
         if (error) {
             console.log('Error', error);
             return;
